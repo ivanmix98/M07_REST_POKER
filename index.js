@@ -55,15 +55,23 @@ var baraja = [
     {pal:'diamante', num:'11'},
     {pal:'diamante', num:'12'}
 ];
+var baraja2 = baraja.slice();
 
 app.post('/iniciarJoc/codiPartida', (req, res)=>{
-
+    
 });
 
-app.get('/api/baraja', (req, res)=>res.send(baraja));
+app.get('/api/baraja', (req, res)=>{
+    res.send(baraja2);
+});
 
 app.get('/obtenirCarta/codiPartida', (req, res)=>{
     
+    var robarCarta = baraja2[Math.floor(Math.random()*baraja2.length)];
+    var index =baraja2.indexOf(robarCarta);
+    baraja2.splice(index , 1);
+    console.log(robarCarta);
+    res.send(baraja2);
 });
 
 app.get('/mostrarCartes/codiPartida', (req, res)=>res.send('mostrar cartes xd'));
