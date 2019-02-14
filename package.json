@@ -1,0 +1,23 @@
+{
+  "name": "m07_rest_poker",
+  "version": "0.0.1",
+  "description": "Molt Guay",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivanmix98/M07_REST_POKER.git"
+  },
+  "author": "Arnau Elias, Ivan Fontclara, Joan Garcia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ivanmix98/M07_REST_POKER/issues"
+  },
+  "homepage": "https://github.com/ivanmix98/M07_REST_POKER#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "node": "^11.9.0"
+  }
+}
