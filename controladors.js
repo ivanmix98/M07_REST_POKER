@@ -1,4 +1,6 @@
 var b = require('./baralla');
+var j = require('./classes/Jugador');
+var p = require('./classes/Partida');
 var index;
 
 function IniciarJoc(req,res){
