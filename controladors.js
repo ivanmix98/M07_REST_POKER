@@ -8,7 +8,7 @@ function IniciarJoc(req,res){
 
     let Partida = Partidas.find(part => part.id === codiP);
 
-    if(Partida != null){ res.status(404).send("Ja existeix Aquesta Partida"); }
+    if(Partida != null){ res.status(400).send("Ja existeix Aquesta Partida"); }
 
     else{
         let newBaralla = shuffle(b.baralla);
@@ -16,9 +16,6 @@ function IniciarJoc(req,res){
         Partidas.push(newPartida);
         res.status(200).send(newPartida);
     }
-}
-function Baraja(req,res){
-    res.send(b.baralla);
 }
 function ObtenirCarta(req,res){
     let codiP = req.params.codiPartida;
@@ -31,21 +28,14 @@ function ObtenirCarta(req,res){
         res.send(cartes.pop());
     }
 }
-function ObtenirCartes(req,res){
-    let baraja2 = b.baralla;
-    let grupcartas = [];
-
-    for (let i =0;i<5;i++){
-        let index;
-        let carta = baraja2[Math.floor(Math.random()*baraja2.length)];
-        grupcartas.push(carta);
-        index =baraja2.indexOf(carta);
-        baraja2.splice(index , 1);
-    }
-    res.send(grupcartas);
-}
 function MostrarCartes(req,res){
-    res.send('MostrarCartes');
+    let codiP = req.params.codiPartida;
+    let currentPartida = Partidas.find(part => part.id === codiP);
+
+    if(currentPartida == null){ res.status(404).send("No s'ha trobat la partida"); }
+    else{
+        res.send(currentPartida.cartesTaula);
+    }
 }
 function TirarCarta(req,res){
     res.send('TirarCarta');
@@ -75,9 +65,7 @@ function shuffle(a) {
 }
 
 exports.IniciarJoc          = IniciarJoc;
-exports.Baraja              = Baraja;
 exports.ObtenirCarta        = ObtenirCarta;
-exports.ObtenirCartes       = ObtenirCartes;
 exports.MostrarCartes       = MostrarCartes;
 exports.TirarCarta          = TirarCarta;
 exports.MoureJugadorAposta  = MoureJugadorAposta;
