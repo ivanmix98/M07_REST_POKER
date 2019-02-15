@@ -1,31 +1,42 @@
 var b = require('./baralla');
 var j = require('./classes/Jugador');
 var p = require('./classes/Partida');
-var index;
+var Partidas=[];
 
 function IniciarJoc(req,res){
     let codiP = req.params.codiPartida;
-    let newBaralla = shuffle(b.baralla);
-    let newPartida = new p.Partida(codiP,newBaralla,1,0);
-    res.send(200,newPartida.data)
 
+    let Partida = Partidas.find(part => part.id === codiP);
+
+    if(Partida != null){ res.status(404).send("Ja existeix Aquesta Partida"); }
+
+    else{
+        let newBaralla = shuffle(b.baralla);
+        let newPartida = new p.Partida(codiP,newBaralla,1,0);
+        Partidas.push(newPartida);
+        res.status(200).send(newPartida);
+    }
 }
 function Baraja(req,res){
     res.send(b.baralla);
 }
 function ObtenirCarta(req,res){
-    let baraja2 = b.baralla;
+    let codiP = req.params.codiPartida;
 
-    let robarCarta = baraja2[Math.floor(Math.random()*baraja2.length)];
-    index =baraja2.indexOf(robarCarta);
-    baraja2.splice(index , 1);
-    res.send(robarCarta);
+    let currentPartida = Partidas.find(part => part.id === codiP);
+
+    if(currentPartida == null){ res.status(404).send("No s'ha trobat la partida"); }
+    else{
+        let cartes = currentPartida.cartes;
+        res.send(cartes.pop());
+    }
 }
 function ObtenirCartes(req,res){
     let baraja2 = b.baralla;
     let grupcartas = [];
 
     for (let i =0;i<5;i++){
+        let index;
         let carta = baraja2[Math.floor(Math.random()*baraja2.length)];
         grupcartas.push(carta);
         index =baraja2.indexOf(carta);
