@@ -10,7 +10,9 @@ app.post('/iniciarJoc/codiPartida', c.IniciarJoc);
 
 app.get('/api/baraja', c.Baraja);
 app.get('/obtenirCarta/codiPartida', c.ObtenirCarta);
-app.get('/mostrarCartes/codiPartida', c.MostrarCartes);
+app.get('/obtenirCartes/codiPartida', c.ObtenirCartes);
+app.get('/mostrarCarta/codiPartida', c.MostrarCartes);
+
 
 app.put('/tirarCarta/codiPartida/carta', c.TirarCarta);
 app.put('/moureJugador/codiPartida/aposta/quantitat', c.MoureJugadorAposta);

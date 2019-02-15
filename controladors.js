@@ -17,6 +17,18 @@ function ObtenirCarta(req,res){
     baraja2.splice(index , 1);
     res.send(robarCarta);
 }
+function ObtenirCartes(req,res){
+    let baraja2 = b.baralla;
+    var grupcartas = [];
+
+    for (var i =0;i<5;i++){
+        var carta = baraja2[Math.floor(Math.random()*baraja2.length)];
+        grupcartas.push(carta);
+        index =baraja2.indexOf(carta);
+        baraja2.splice(index , 1);
+    }
+    res.send(grupcartas);
+}
 function MostrarCartes(req,res){
     res.send('MostrarCartes');
 }
@@ -36,6 +48,7 @@ function AcabarJoc(req,res){
 exports.IniciarJoc          = IniciarJoc;
 exports.Baraja              = Baraja;
 exports.ObtenirCarta        = ObtenirCarta;
+exports.ObtenirCartes       = ObtenirCartes;
 exports.MostrarCartes       = MostrarCartes;
 exports.TirarCarta          = TirarCarta;
 exports.MoureJugadorAposta  = MoureJugadorAposta;
