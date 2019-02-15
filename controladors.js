@@ -4,6 +4,10 @@ var p = require('./classes/Partida');
 var index;
 
 function IniciarJoc(req,res){
+    let codiP = req.params.codiPartida;
+    let newBaralla = shuffle(b.baralla);
+    let newPartida = new p.Partida(codiP,newBaralla,1,0);
+    res.send(200,newPartida.data)
 
 }
 function Baraja(req,res){
@@ -19,10 +23,10 @@ function ObtenirCarta(req,res){
 }
 function ObtenirCartes(req,res){
     let baraja2 = b.baralla;
-    var grupcartas = [];
+    let grupcartas = [];
 
-    for (var i =0;i<5;i++){
-        var carta = baraja2[Math.floor(Math.random()*baraja2.length)];
+    for (let i =0;i<5;i++){
+        let carta = baraja2[Math.floor(Math.random()*baraja2.length)];
         grupcartas.push(carta);
         index =baraja2.indexOf(carta);
         baraja2.splice(index , 1);
@@ -43,6 +47,20 @@ function MoureJugadorPassa(req,res){
 }
 function AcabarJoc(req,res){
     res.send('Acabar Joc');
+}
+
+//Les nostres funcions
+
+function shuffle(a) {
+    let ctr = a.length, temp, index;
+    while (ctr > 0) {
+        index = Math.floor(Math.random() * ctr);
+        ctr--;
+        temp = a[ctr];
+        a[ctr] = a[index];
+        a[index] = temp;
+    }
+    return a;
 }
 
 exports.IniciarJoc          = IniciarJoc;
