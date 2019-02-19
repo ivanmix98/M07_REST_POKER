@@ -2,7 +2,8 @@ var b = require('./baralla');
 var j = require('./classes/Jugador');
 var p = require('./classes/Partida');
 var Partidas = [];
-var CartasJ1 = [];
+var CartasJ1=[];
+var CartasJ2=[];
 
 function IniciarJoc(req, res) {
     let codiP = req.params.codiPartida;
@@ -20,16 +21,40 @@ function IniciarJoc(req, res) {
 }
 function ObtenirCarta(req, res) {
     let codiP = req.params.codiPartida;
+    let Jugador = req.params.jugador;
+    
 
-    let currentPartida = Partidas.find(part => part.id === codiP);
 
-    if (currentPartida == null) { res.status(404).send("No s'ha trobat la partida"); }
-    else {
-        let cartes = currentPartida.cartes;
-        let unacarta = cartes.pop();
-        CartasJ1.push(unacarta);
-        res.status(200).send(unacarta);
+    if (Jugador == '1') {
+        let currentPartida = Partidas.find(part => part.id === codiP);
+
+        if (currentPartida == null) { res.status(404).send("No s'ha trobat la partida"); }
+        else {
+            let cartes = currentPartida.cartes;
+            let unacarta = cartes.pop();
+            CartasJ1.push(unacarta);
+            res.status(200).send(CartasJ1);
+        }
     }
+    else if (Jugador == '2') {
+        let currentPartida = Partidas.find(part => part.id === codiP);
+
+        if (currentPartida == null) { res.status(404).send("No s'ha trobat la partida"); }
+        else {
+            let cartes = currentPartida.cartes;
+            let unacarta = cartes.pop();
+            CartasJ2.push(unacarta);
+            res.status(200).send(CartasJ2);
+        }
+    }else{
+        let currentPartida = Partidas.find(part => part.id === codiP);
+        if (currentPartida == null) { res.status(404).send("No s'ha trobat la partida"); }
+        else {
+            res.send('no existeix tal jugador');
+        }
+    }
+
+
 }
 function MostrarCartes(req, res) {
     let codiP = req.params.codiPartida;
@@ -40,8 +65,10 @@ function MostrarCartes(req, res) {
         res.send(currentPartida.cartesTaula);
     }
 }
+
 function TirarCarta(req, res) {
-    res.send('TirarCarta');
+    res.send('tirarcarta');
+
 }
 function MoureJugadorAposta(req, res) {
     res.send('Moure Jugador Aposta');

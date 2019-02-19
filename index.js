@@ -7,7 +7,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post('/iniciarJoc/:codiPartida', c.IniciarJoc); //iniciar la partida
-app.get('/obtenirCarta/:codiPartida', c.ObtenirCarta);
+app.get('/obtenirCarta/:codiPartida/:jugador', c.ObtenirCarta);
 
 app.get('/mostrarCarta/:codiPartida', c.MostrarCartes);
 
