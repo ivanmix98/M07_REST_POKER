@@ -91,7 +91,6 @@ function MoureJugadorPassa(req, res) {
     let codiP = req.params.codiPartida;
 
     let currentPartida = Partidas.find(part => part.id === codiP);
-
     if (currentPartida == null) { res.status(404).send("No s'ha trobat la partida"); }
     else {
         if(json.jugador == null) res.status(400).send("No s'ha rebut les dades correctament");
@@ -108,11 +107,17 @@ function MoureJugadorPassa(req, res) {
 function AcabarJoc(req, res) {
     let codiP = req.params.codiPartida;
     let currentPartida = Partidas.find(part => part.id === codiP);
-    Partidas.splice(currentPartida,1);
-    if(Partidas.find(part => part.id === codiP) == null){
-        res.status(200).send("Partida finalitzada correctament");
-    }else{
-        res.status(500).send("Hi ha hagut un error al Finalitzar la partida");
+
+    if(Partidas.find(part => part.id === codiP) == null) res.status(400).send("Aquesta partida no Existeix");
+    else{
+        Partidas.splice(currentPartida,1);
+
+        if(Partidas.find(part => part.id === codiP) == null){
+
+            res.status(200).send("Partida finalitzada correctament");
+        }else{
+            res.status(500).send("Hi ha hagut un error al Finalitzar la partida");
+        }
     }
 }
 
