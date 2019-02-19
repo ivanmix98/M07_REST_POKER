@@ -2,8 +2,8 @@ var b = require('./baralla');
 var j = require('./classes/Jugador');
 var p = require('./classes/Partida');
 var Partidas = [];
-var CartasJ1=[];
-var CartasJ2=[];
+var CartasJ1 = [];
+var CartasJ2 = [];
 
 function IniciarJoc(req, res) {
     let codiP = req.params.codiPartida;
@@ -22,7 +22,7 @@ function IniciarJoc(req, res) {
 function ObtenirCarta(req, res) {
     let codiP = req.params.codiPartida;
     let Jugador = req.params.jugador;
-    
+
 
 
     if (Jugador == '1') {
@@ -46,7 +46,7 @@ function ObtenirCarta(req, res) {
             CartasJ2.push(unacarta);
             res.status(200).send(unacarta);
         }
-    }else{
+    } else {
         let currentPartida = Partidas.find(part => part.id === codiP);
         if (currentPartida == null) { res.status(404).send("No s'ha trobat la partida"); }
         else {
@@ -69,14 +69,14 @@ function MostrarCartes(req, res) {
 function MostrarCartesJugador(req, res) {
     let codiP = req.params.codiPartida;
     let Jugador = req.params.jugador;
-    
+
 
 
     if (Jugador == '1') {
         let currentPartida = Partidas.find(part => part.id === codiP);
 
         if (currentPartida == null) { res.status(404).send("No s'ha trobat la partida"); }
-        else {            
+        else {
             res.status(200).send(CartasJ1);
         }
     }
@@ -84,10 +84,10 @@ function MostrarCartesJugador(req, res) {
         let currentPartida = Partidas.find(part => part.id === codiP);
 
         if (currentPartida == null) { res.status(404).send("No s'ha trobat la partida"); }
-        else {            
+        else {
             res.status(200).send(CartasJ2);
         }
-    }else{
+    } else {
         let currentPartida = Partidas.find(part => part.id === codiP);
         if (currentPartida == null) { res.status(404).send("No s'ha trobat la partida"); }
         else {
@@ -107,7 +107,19 @@ function MoureJugadorPassa(req, res) {
     res.send('Moure Jugador Passa');
 }
 function AcabarJoc(req, res) {
-    res.send('Acabar Joc');
+    let codiP = req.params.codiPartida;
+
+    let Partida = Partidas.find(part => part.id === codiP);
+
+    if(Partida !=null){
+        Partidas.splice(Partida,1);
+        res.status(200).send("borrada crack");
+    }
+        
+        else {
+            res.status(404).send("no borrada xq no existe crack");
+        }
+   
 }
 
 //Les nostres funcions
