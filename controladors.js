@@ -33,7 +33,7 @@ function ObtenirCarta(req, res) {
             let cartes = currentPartida.cartes;
             let unacarta = cartes.pop();
             CartasJ1.push(unacarta);
-            res.status(200).send(CartasJ1);
+            res.status(200).send(unacarta);
         }
     }
     else if (Jugador == '2') {
@@ -44,7 +44,7 @@ function ObtenirCarta(req, res) {
             let cartes = currentPartida.cartes;
             let unacarta = cartes.pop();
             CartasJ2.push(unacarta);
-            res.status(200).send(CartasJ2);
+            res.status(200).send(unacarta);
         }
     }else{
         let currentPartida = Partidas.find(part => part.id === codiP);
@@ -63,6 +63,36 @@ function MostrarCartes(req, res) {
     if (currentPartida == null) { res.status(404).send("No s'ha trobat la partida"); }
     else {
         res.send(currentPartida.cartesTaula);
+    }
+}
+
+function MostrarCartesJugador(req, res) {
+    let codiP = req.params.codiPartida;
+    let Jugador = req.params.jugador;
+    
+
+
+    if (Jugador == '1') {
+        let currentPartida = Partidas.find(part => part.id === codiP);
+
+        if (currentPartida == null) { res.status(404).send("No s'ha trobat la partida"); }
+        else {            
+            res.status(200).send(CartasJ1);
+        }
+    }
+    else if (Jugador == '2') {
+        let currentPartida = Partidas.find(part => part.id === codiP);
+
+        if (currentPartida == null) { res.status(404).send("No s'ha trobat la partida"); }
+        else {            
+            res.status(200).send(CartasJ2);
+        }
+    }else{
+        let currentPartida = Partidas.find(part => part.id === codiP);
+        if (currentPartida == null) { res.status(404).send("No s'ha trobat la partida"); }
+        else {
+            res.send('no existeix tal jugador');
+        }
     }
 }
 
@@ -101,3 +131,4 @@ exports.TirarCarta = TirarCarta;
 exports.MoureJugadorAposta = MoureJugadorAposta;
 exports.MoureJugadorPassa = MoureJugadorPassa;
 exports.AcabarJoc = AcabarJoc;
+exports.MostrarCartesJugador = MostrarCartesJugador;
