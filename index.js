@@ -16,6 +16,6 @@ app.put('/tirarCarta/:codiPartida/carta', c.TirarCarta);
 app.put('/moureJugador/:codiPartida/aposta/:quantitat', c.MoureJugadorAposta);
 app.put('/moureJugador/:codiPartida/passa', c.MoureJugadorPassa);
 
-app.delete('/acabarJoc/codiPartida', c.AcabarJoc);
+app.delete('/acabarJoc/:codiPartida', c.AcabarJoc);
 
 app.listen(3000, ()=>console.log('inici servidor http://localhost:3000'));

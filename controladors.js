@@ -106,7 +106,14 @@ function MoureJugadorPassa(req, res) {
     }
 }
 function AcabarJoc(req, res) {
-    res.send('Acabar Joc');
+    let codiP = req.params.codiPartida;
+    let currentPartida = Partidas.find(part => part.id === codiP);
+    Partidas.splice(currentPartida,1);
+    if(Partidas.find(part => part.id === codiP) == null){
+        res.status(200).send("Partida finalitzada correctament");
+    }else{
+        res.status(500).send("Hi ha hagut un error al Finalitzar la partida");
+    }
 }
 
 function shuffle(a) {
