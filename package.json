@@ -17,8 +17,9 @@
   },
   "homepage": "https://github.com/ivanmix98/M07_REST_POKER#readme",
   "dependencies": {
+    "body-parser": "latest",
     "express": "^4.16.4",
-    "node": "^11.9.0",
-    "body-parser": "latest"
+    "jsonwebtoken": "^8.5.0",
+    "node": "^11.9.0"
   }
 }
